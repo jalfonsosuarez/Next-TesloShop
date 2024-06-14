@@ -1,8 +1,22 @@
+import { notFound } from "next/navigation";
 
-export default function Cart() {
+interface Props {
+  params: {
+    id: string;
+  }
+}
+
+export default function Category({ params }: Props) {
+
+  const { id } = params;
+
+  if (id === 'kids') {
+    notFound();
+  }
+
   return (
     <div>
-      <h1>Categoty Page</h1>
+      <h1>Categoty Page {id}</h1>
     </div>
   );
 }
