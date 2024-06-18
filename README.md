@@ -13,6 +13,7 @@ https://www.udemy.com/course/nextjs-fh/
 - Establecer los valores para las variables de entorno
 - Levantar la base de datos con Docker `docker compose up -d`
 - Ejecutar migraciones de Prisma `npx prisma migrate dev`
+- Cargar datos de prueba en la base de datos `npm run seed`
 - Ejecutar el proyecto `npm run dev`
 
 # Generar y ejecutar en PROD

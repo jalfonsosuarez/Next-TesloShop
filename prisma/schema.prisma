@@ -39,6 +39,7 @@ model Category {
 model Product {
   id          String   @id @default(uuid())
   description String
+  title       String
   inStock     Int
   price       Float    @default(0)
   sizes       Size[]   @default([])
