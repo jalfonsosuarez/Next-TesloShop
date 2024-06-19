@@ -88,7 +88,7 @@ export default function Cart() {
             <div className='mt-5 mb-2 w-full'>
               <p className='mb-5'>
                 <span className="text-xs">
-                  Al hacen click en "Confirmar Pedido", acepta nuestros
+                  Al hacen click en &quot;Confirmar Pedido&quot;, acepta nuestros
                   <a href="/" className='underline'> términos y condiciones</a> y
                   <a href="/" className='underline'> política de privacidad</a>
                 </span>
