@@ -10,3 +10,4 @@ export { PageNotFound } from "./ui/not-found/PageNotFound";
 export { TopMenu } from "./ui/top-menu/TopMenu";
 export { ProductGrid } from "./products/product-grid/ProductGrid";
 export * from "./ui/pagination/Pagination";
+export * from "./product/stock-label/StockLabel";
