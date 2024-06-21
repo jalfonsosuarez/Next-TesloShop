@@ -4,6 +4,7 @@ import { Product } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { currencyFormat } from "@/utils";
 
 
 interface Props {
@@ -35,7 +36,7 @@ export const ProductGridItem = ({ product }: Props) => {
           {product.title}
         </Link>
         <span className="font-bold">
-          ${product.price}
+          {currencyFormat(product.price)}
         </span>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use server";
 
 import { Gender } from "@prisma/client";
-import prisma from "../../lib/prisma";
+import prisma from "@/lib/prisma";
 
 interface PaginationOptions {
   page?: number;
@@ -53,6 +53,6 @@ export const getPaginatedProductsWithImages = async ({
       })),
     };
   } catch (error) {
-    throw new Error("No se han podido cartar los productos.");
+    throw new Error("No se han podido cargar los productos.");
   }
 };
