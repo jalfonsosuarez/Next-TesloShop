@@ -11,6 +11,7 @@ https://www.udemy.com/course/nextjs-fh/
 - Instalar dependencia con `npm install`
 - Copiar `.env.template` como `.env`
 - Establecer los valores para las variables de entorno
+  - IMPORTANTE: para el valor de AUTH_SECRET, generarlo con `openssl rand -base64 32`
 - Levantar la base de datos con Docker `docker compose up -d`
 - Ejecutar migraciones de Prisma `npx prisma migrate dev`
 - Cargar datos de prueba en la base de datos `npm run seed`
