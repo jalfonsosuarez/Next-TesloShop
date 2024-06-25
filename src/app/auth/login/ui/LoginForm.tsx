@@ -1,5 +1,4 @@
 "use client";
-//import { useActionState } from "react";
 
 import Link from "next/link"
 import { authenticate } from "@/actions";
@@ -8,21 +7,15 @@ import { IoAlertCircleOutline } from "react-icons/io5";
 import { useFormState, useFormStatus } from "react-dom";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+
 
 export const LoginForm = () => {
 
-  const router = useRouter();
   const [state, dispatch] = useFormState(authenticate, undefined);
-
-  // const [errorMessage, formAction, isPending] = useActionState(
-  //   //authenticate,
-  //   undefined,
-  // );
 
   useEffect(() => {
     if (state === "Success") {
-      router.replace('/');
+      window.location.replace('/');
     }
   }, [state])
 
