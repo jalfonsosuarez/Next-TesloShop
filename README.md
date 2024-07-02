@@ -17,4 +17,6 @@ https://www.udemy.com/course/nextjs-fh/
 - Cargar datos de prueba en la base de datos `npm run seed`
 - Ejecutar el proyecto `npm run dev`
 
+- Ver base de datos con `npx prisma studio`
+
 # Generar y ejecutar en PROD
