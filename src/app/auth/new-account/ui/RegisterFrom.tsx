@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import clsx from "clsx";
 import Link from "next/link";
@@ -6,22 +6,23 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { login, registerUser } from "@/actions";
 import { useState } from "react";
 
-
 type FormInputs = {
   name: string;
   email: string;
   password: string;
-}
-
+};
 
 export const RegisterFrom = () => {
-
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    setErrorMessage('');
+    setErrorMessage("");
     const { name, email, password } = data;
     const resp = await registerUser(name, email, password);
 
@@ -31,13 +32,11 @@ export const RegisterFrom = () => {
     }
 
     await login(email.toLowerCase(), password);
-    window.location.replace('/');
-
-  }
+    window.location.replace("/");
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-
       {/* {
         errors.name?.type === 'required' && (
           <span className="text-red-500">* Nombre es obligatorio</span>
@@ -46,68 +45,41 @@ export const RegisterFrom = () => {
 
       <label htmlFor="name">Nombre y apellidos</label>
       <input
-        className={
-          clsx(
-            "px-5 py-2 border bg-gray-200 rounded mb-5",
-            {
-              'border-red-500': !!errors.name
-            }
-          )
-        }
+        className={clsx("px-5 py-2 border bg-gray-200 rounded mb-5", {
+          "border-red-500": !!errors.name,
+        })}
         type="text"
         autoFocus
-        {...register('name', { required: true })}
+        {...register("name", { required: true })}
       />
-
 
       <label htmlFor="email">Correo electrónico</label>
       <input
-        className={
-          clsx(
-            "px-5 py-2 border bg-gray-200 rounded mb-5",
-            {
-              'border-red-500': !!errors.email
-            }
-          )
-        }
+        className={clsx("px-5 py-2 border bg-gray-200 rounded mb-5", {
+          "border-red-500": !!errors.email,
+        })}
         type="email"
-        {...register('email',
-          {
-            required: true,
-            pattern: RegExp('^(.+)@(\\S+)$')
-          }
-        )
-        }
+        {...register("email", {
+          required: true,
+          pattern: RegExp("^(.+)@(\\S+)$"),
+        })}
       />
-
 
       <label htmlFor="email">Contraseña</label>
       <input
-        className={
-          clsx(
-            "px-5 py-2 border bg-gray-200 rounded mb-5",
-            {
-              'border-red-500': !!errors.password
-            }
-          )
-        }
+        className={clsx("px-5 py-2 border bg-gray-200 rounded mb-5", {
+          "border-red-500": !!errors.password,
+        })}
         type="password"
-        {...register('password',
-          {
-            required: true,
-            minLength: 6
-          }
-        )
-        }
+        {...register("password", {
+          required: true,
+          minLength: 6,
+        })}
       />
 
       <span className="text-red-500">{errorMessage}</span>
 
-      <button
-        className="btn-primary">
-        Crear cuenta
-      </button>
-
+      <button className="btn-primary">Crear cuenta</button>
 
       {/* divisor l ine */}
       <div className="flex items-center my-5">
@@ -116,13 +88,9 @@ export const RegisterFrom = () => {
         <div className="flex-1 border-t border-gray-500"></div>
       </div>
 
-      <Link
-        href="/auth/login"
-        className="btn-secondary text-center">
+      <Link href="/auth/login" className="btn-secondary text-center">
         Acceder
       </Link>
-
     </form>
-
-  )
-}
+  );
+};
