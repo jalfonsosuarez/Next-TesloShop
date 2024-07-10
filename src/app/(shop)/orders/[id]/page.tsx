@@ -5,6 +5,9 @@ import Image from "next/image";
 import { QuantitySelector } from "@/components";
 import clsx from "clsx";
 import { IoCartOutline } from "react-icons/io5";
+import { getOrderById } from "@/actions";
+import { redirect } from "next/navigation";
+import { currencyFormat } from "../../../../utils/currencyFormat";
 
 const productsInCart = [
   initialData.products[0],
@@ -18,12 +21,17 @@ interface Props {
   };
 }
 
-export default function Cart({ params }: Props) {
+export default async function Cart({ params }: Props) {
   const { id } = params;
 
   //! Todo: llamar el server action
+  const { ok, order } = await getOrderById(id);
 
-  //! TODO: Verificar orden
+  if (!ok) {
+    redirect("/");
+  }
+
+  const address = order!.OrderAddress;
 
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
@@ -37,34 +45,43 @@ export default function Cart({ params }: Props) {
               className={clsx(
                 "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
                 {
-                  "bg-red-500": false,
-                  "bg-green-700": true,
+                  "bg-red-500": !order!.isPaid,
+                  "bg-green-700": order!.isPaid,
                 }
               )}
             >
               <IoCartOutline size={30} />
               {/* <span className='mx-2'>Pendiente de pago</span> */}
-              <span className="mx-2">Pagado</span>
+              <span className="mx-2">
+                {order!.isPaid ? "Pagada" : "No pagada"}
+              </span>
             </div>
 
             {/* items */}
-            {productsInCart.map((product) => (
-              <div key={product.slug} className="flex mb-5">
+            {order!.OrderItem.map((item) => (
+              <div
+                key={item.product.slug + "-" + item.size}
+                className="flex mb-5"
+              >
                 <Image
-                  src={`/products/${product.images[0]}`}
+                  src={`/products/${item.product.ProductImage[0].url}`}
                   width={100}
                   height={100}
                   style={{
                     width: "100px",
                     height: "100px",
                   }}
-                  alt={product.title}
+                  alt={item.product.title}
                   className="mr-5 rounded"
                 />
                 <div>
-                  <p>{product.title}</p>
-                  <p>${product.price} x 3 Uds.</p>
-                  <p className="font-bold">Subtotal: ${product.price * 3}</p>
+                  <p>{item.size + " - " + item.product.title}</p>
+                  <p>
+                    {currencyFormat(item.price)} x {item.quantity} Uds.
+                  </p>
+                  <p className="font-bold">
+                    Subtotal: {currencyFormat(item.price * item.quantity)}
+                  </p>
                 </div>
               </div>
             ))}
@@ -74,11 +91,13 @@ export default function Cart({ params }: Props) {
           <div className="bg-white rounded-xl shadow-xl p-7">
             <h2 className="text-2xl font-bold mb-2">Dirección de entrega</h2>
             <div className="mb-10">
-              <p>Fulanito de Tal y Cual</p>
-              <p>Calle del Suspido Verde, 5</p>
-              <p>78050 - Población</p>
-              <p>Provincia</p>
-              <p>Teléfono: 123 456 789</p>
+              <p>{address!.firstName}</p>
+              <p>{address!.lastName}</p>
+              <p>
+                {address!.postalCode} - {address?.city}
+              </p>
+              <p>{address!.countryId}</p>
+              <p>Teléfono: {address!.phone}</p>
             </div>
 
             {/* divider */}
@@ -89,16 +108,22 @@ export default function Cart({ params }: Props) {
             </h2>
             <div className="grid grid-cols-2">
               <span>No. de productos</span>
-              <span className="text-right">3 artículos</span>
+              <span className="text-right">
+                {order!.itemsInOrder} artículos
+              </span>
 
               <span>Subtotal</span>
-              <span className="text-right">$100</span>
+              <span className="text-right">
+                {currencyFormat(order!.subTotal)}
+              </span>
 
               <span>Impuestos (15%)</span>
-              <span className="text-right">$100</span>
+              <span className="text-right">{currencyFormat(order!.tax)}</span>
 
               <span className="mt-5 text-2xl">Total:</span>
-              <span className="mt-5 text-2xl text-right">$100</span>
+              <span className="mt-5 text-2xl text-right">
+                {currencyFormat(order!.total)}
+              </span>
             </div>
 
             <div className="mt-5 mb-2 w-full">
@@ -106,14 +131,16 @@ export default function Cart({ params }: Props) {
                 className={clsx(
                   "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
                   {
-                    "bg-red-500": false,
-                    "bg-green-700": true,
+                    "bg-red-500": !order!.isPaid,
+                    "bg-green-700": order!.isPaid,
                   }
                 )}
               >
                 <IoCartOutline size={30} />
                 {/* <span className='mx-2'>Pendiente de pago</span> */}
-                <span className="mx-2">Pagado</span>
+                <span className="mx-2">
+                  {order!.isPaid ? "Pagada" : "No pagada"}
+                </span>
               </div>
             </div>
           </div>
