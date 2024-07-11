@@ -53,7 +53,7 @@ export default async function Orders() {
           <tbody>
             {orders.map((order) => (
               <tr
-                key="order.id"
+                key={order.id}
                 className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
               >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">

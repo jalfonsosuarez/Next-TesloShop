@@ -12,4 +12,8 @@ export { ProductGrid } from "./products/product-grid/ProductGrid";
 export * from "./ui/pagination/Pagination";
 export * from "./product/stock-label/StockLabel";
 
-export * from "./provider/Provider";
+export * from "./providers/Providers";
+
+export * from "./paypal/PaypalButton";
+
+export * from "./orders/OrderStatus";
