@@ -16,6 +16,7 @@ https://www.udemy.com/course/nextjs-fh/
 - Ejecutar migraciones de Prisma `npx prisma migrate dev`
 - Cargar datos de prueba en la base de datos `npm run seed`
 - Ejecutar el proyecto `npm run dev`
+- Limpiar el localstorage del navegador.
 
 - Ver base de datos con `npx prisma studio`
 
